@@ -39,6 +39,12 @@ const PhysicsScene = () => {
     },
   });
 
+  // guia mousemove
+  window.addEventListener('mousemove', (e) => {
+    let posX = e.clientX;
+    let posY = e.clientY;   
+  })
+
   // FUNÇÕES
   /* POSIÇÃO ALETÓRIA  */
   const getPosition = () => {
