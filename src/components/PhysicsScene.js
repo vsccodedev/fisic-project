@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "../components/PhysicsScene.css";
 import Matter from "matter-js";
 
 const PhysicsScene = () => {
