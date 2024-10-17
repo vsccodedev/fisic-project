@@ -1,4 +1,3 @@
-import React from "react";
 import Matter from "matter-js";
 
 const PhysicsScene = () => {
@@ -38,11 +37,27 @@ const PhysicsScene = () => {
     },
   });
 
-  // guia mousemove
-  window.addEventListener('mousemove', (e) => {
+  // evento mousemove
+  window.addEventListener("mousemove", (e) => {
     let posX = e.clientX;
-    let posY = e.clientY;   
-  })
+    let posY = e.clientY;
+
+    //aplicar força
+    circles.forEach((circle) => {
+      // verifico se a posição do mouse está dentro dos limites do círculo (circle.bound)
+      if (Matter.Bounds.contains(circle.bounds, { x: posX, y: posY })) {
+        const forcaMagnitude = 0.005;
+        // calcular força na direção dos eixos
+        // diferença entre a posição do círculo e a do mouse vezes a força magnitude
+        const force = {
+          x: (circle.position.x - posX) * forcaMagnitude,
+          y: (circle.position.y - posY) * forcaMagnitude,
+        };
+
+        Matter.Body.applyForce(circle, circle.position, force);
+      }
+    });
+  });
 
   // FUNÇÕES
   /* POSIÇÃO ALETÓRIA  */
@@ -92,7 +107,6 @@ const PhysicsScene = () => {
   // criando e executanto a física
   const runner = Runner.create();
   Runner.run(runner, engine);
-
 };
 
 export default PhysicsScene;
